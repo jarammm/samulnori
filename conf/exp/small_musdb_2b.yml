@@ -101,14 +101,14 @@ StemDataset.salience_num_tries: 8
 
 train/StemDataset.n_examples: 10000000
 train/StemDataset.sources:
-  - manifests/musdb_hq/train.csv
-  - manifests/musdb_hq/test.csv
+  - manifests/gugak/train.csv
+  - manifests/gugak/test.csv
 train/StemDataset.source_weights: [0.89, 0.11]
 train/StemDataset.with_replacement: true
 
 val/StemDataset.n_examples: 2000
 val/StemDataset.sources:
-  - manifests/musdb_hq/val.csv
+  - manifests/gugak/val.csv
 val/StemDataset.with_replacement: false
 
 ################################################################################
