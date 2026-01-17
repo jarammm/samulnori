@@ -35,7 +35,7 @@ class StemDataset(Dataset):
     sources : Union[str, Path, List[Union[str, Path]]]
         CSV manifest(s) with columns for each requested stem.
     stems : List[str]
-        Column names to load, e.g. ["mixture","drums","bass","vocals"].
+        Column names to load, e.g. ["drums"].
         The **first** stem is used for salience unless `salience_on` is set.
     sample_rate : int
     duration : float

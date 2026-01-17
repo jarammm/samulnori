@@ -6,6 +6,6 @@ PRETRAINED_DIR = Path(__file__).parent.parent / "pretrained"
 ASSETS_DIR = Path(__file__).parent.parent / "assets"
 
 
-STEMS = ["drums", "bass", "vocals", "other", "mixture"]
+STEMS = ["drums"]
 SAMPLE_RATE = 44_100
 DURATION = 6.0
