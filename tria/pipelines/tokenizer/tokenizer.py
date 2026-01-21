@@ -86,7 +86,7 @@ class Tokenizer(torch.nn.Module):
         # Initialize
         if ckpt_pth is not None:
             self.model = model_cls(**cfg)
-            self.model.load_state_dict(torch.load(ckpt_pth, map_location="cpu"))
+            self.model.load_state_dict(torch.load(ckpt_pth, map_location="cpu", weights_only=False))
 
         self.model.eval()
 

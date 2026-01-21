@@ -227,7 +227,7 @@ def load_model_by_name(name: str):
     cfg = MODEL_ZOO[name]
 
     model = TRIA(**cfg["model_cfg"])
-    sd = torch.load(cfg["checkpoint"], map_location="cpu")
+    sd = torch.load(cfg["checkpoint"], map_location="cpu", weights_only=False)
     model.load_state_dict(sd, strict=True)
     model.to(device)
     model.eval()

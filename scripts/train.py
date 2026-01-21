@@ -158,7 +158,7 @@ def load(
         
         tracker.print(f"Resuming from {str(Path('.').absolute())}/{load_dir}")
         if model_pth.exists():
-            sd = torch.load(model_pth, map_location="cpu")
+            sd = torch.load(model_pth, map_location="cpu", weights_only=False)
             model.load_state_dict(sd)
         
         if extras_pth.exists():
