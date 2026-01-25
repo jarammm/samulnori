@@ -90,6 +90,94 @@ MODEL_ZOO = {
         },
         "max_duration": 6.0,
     },
+        "gugak_best": {
+        "checkpoint": "runs/best/model.pt",
+        "model_cfg": {
+            "codebook_size": 1024,
+            "n_codebooks": 9,
+            "n_channels": 512,
+            "n_feats": 2,
+            "n_heads": 8,
+            "n_layers": 12,
+            "mult": 4,
+            "p_dropout": 0.0,
+            "bias": True,
+            "max_len": 1000,
+            "pos_enc": "rope",
+            "qk_norm": True,
+            "use_sdpa": True,
+            "interp": "nearest",
+            "share_emb": True,
+        },
+        "tokenizer_cfg": {"name": "dac"},
+        "feature_cfg": {
+            "sample_rate": 16_000,
+            "n_bands": 2,
+            "n_mels": 40,
+            "window_length": 384,
+            "hop_length": 192,
+            "quantization_levels": 5,
+            "slow_ma_ms": 200,
+            "post_smooth_ms": 100,
+            "legacy_normalize": False,
+            "clamp_max": 50.0,
+            "normalize_quantile": 0.98,
+        },
+        "infer_cfg": {
+            "top_p": 0.95,
+            "top_k": None,
+            "temp": 1.0,
+            "mask_temp": 10.5,
+            "iterations": [8, 8, 8, 8, 4, 4, 4, 4, 4],
+            "guidance_scale": 2.0,
+            "causal_bias": 1.0,
+        },
+        "max_duration": 6.0,
+    },
+    "gugak_latest": {
+        "checkpoint": "runs/latest/model.pt",
+        "model_cfg": {
+            "codebook_size": 1024,
+            "n_codebooks": 9,
+            "n_channels": 512,
+            "n_feats": 2,
+            "n_heads": 8,
+            "n_layers": 12,
+            "mult": 4,
+            "p_dropout": 0.0,
+            "bias": True,
+            "max_len": 1000,
+            "pos_enc": "rope",
+            "qk_norm": True,
+            "use_sdpa": True,
+            "interp": "nearest",
+            "share_emb": True,
+        },
+        "tokenizer_cfg": {"name": "dac"},
+        "feature_cfg": {
+            "sample_rate": 16_000,
+            "n_bands": 2,
+            "n_mels": 40,
+            "window_length": 384,
+            "hop_length": 192,
+            "quantization_levels": 5,
+            "slow_ma_ms": 200,
+            "post_smooth_ms": 100,
+            "legacy_normalize": False,
+            "clamp_max": 50.0,
+            "normalize_quantile": 0.98,
+        },
+        "infer_cfg": {
+            "top_p": 0.95,
+            "top_k": None,
+            "temp": 1.0,
+            "mask_temp": 10.5,
+            "iterations": [8, 8, 8, 8, 4, 4, 4, 4, 4],
+            "guidance_scale": 2.0,
+            "causal_bias": 1.0,
+        },
+        "max_duration": 6.0,
+    },
 }
 
 
@@ -498,7 +586,7 @@ def on_generate(
 ########################################
 
 
-with gr.Blocks(title="TRIA: The Rhythm In Anything", theme=gr.themes.Soft()) as demo:
+with gr.Blocks(title="TRIA: The Rhythm In Anything") as demo:
     gr.Markdown("# 🥁 TRIA: The Rhythm In Anything 🥁")
     gr.Markdown(
         "Select a **Model**, load **Timbre** + **Rhythm** prompts (record or upload). "
@@ -510,14 +598,14 @@ with gr.Blocks(title="TRIA: The Rhythm In Anything", theme=gr.themes.Soft()) as 
         with gr.Column():
             gr.Markdown("### Timbre Prompt")
             timbre_audio = gr.Audio(sources=["upload", "microphone"], type="numpy",
-                                    label="Timbre Audio", show_download_button=True)
-            timbre_spec = gr.Image(label="Timbre Spectrogram", show_download_button=True)
+                                    label="Timbre Audio")
+            timbre_spec = gr.Image(label="Timbre Spectrogram")
             btn_timbre_ex = gr.Button("Load Example Timbre", variant="secondary")
         with gr.Column():
             gr.Markdown("### Rhythm Prompt")
             rhythm_audio = gr.Audio(sources=["upload", "microphone"], type="numpy",
-                                    label="Rhythm Audio", show_download_button=True)
-            rhythm_spec = gr.Image(label="Rhythm Spectrogram", show_download_button=True)
+                                    label="Rhythm Audio")
+            rhythm_spec = gr.Image(label="Rhythm Spectrogram")
             btn_rhythm_ex = gr.Button("Load Example Rhythm", variant="secondary")
 
     # Outputs row
@@ -527,14 +615,14 @@ with gr.Blocks(title="TRIA: The Rhythm In Anything", theme=gr.themes.Soft()) as 
     
     with gr.Row():
         with gr.Column():
-            out_audio_1 = gr.Audio(type="numpy", label="Generated #1", interactive=False, show_download_button=True)
-            out_spec_1  = gr.Image(label="Spectrogram #1", show_download_button=True)
+            out_audio_1 = gr.Audio(type="numpy", label="Generated #1", interactive=False)
+            out_spec_1  = gr.Image(label="Spectrogram #1")
         with gr.Column():
-            out_audio_2 = gr.Audio(type="numpy", label="Generated #2", interactive=False, show_download_button=True)
-            out_spec_2  = gr.Image(label="Spectrogram #2", show_download_button=True)
+            out_audio_2 = gr.Audio(type="numpy", label="Generated #2", interactive=False)
+            out_spec_2  = gr.Image(label="Spectrogram #2")
         with gr.Column():
-            out_audio_3 = gr.Audio(type="numpy", label="Generated #3", interactive=False, show_download_button=True)
-            out_spec_3  = gr.Image(label="Spectrogram #3", show_download_button=True)
+            out_audio_3 = gr.Audio(type="numpy", label="Generated #3", interactive=False)
+            out_spec_3  = gr.Image(label="Spectrogram #3")
     params_text = gr.Markdown("")
 
     # Controls bottom: 2 columns (left: Model + Sampling + Audio; right: Schedule)
