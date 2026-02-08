@@ -277,7 +277,7 @@ def val_loop(batch, state, accel):
             label_smoothing=0.1,
         )  * loss_mask.float()  # (n_batch, n_codebooks, n_frames)
         
-        output["loss/cross_entropy"] = loss.mean()
+        output["loss/cross_entropy"] = loss.sum() / loss_mask.sum()
 
     # Log loss/accuracy by codebook
     acc = (
@@ -377,7 +377,7 @@ def train_loop(state, batch, accel):
             label_smoothing=0.1,
         )  * loss_mask.float()           # (n_batch, n_codebooks, n_frames)
         
-        output["loss/cross_entropy"] = loss.mean()
+        output["loss/cross_entropy"] = loss.sum() / loss_mask.sum()
     
     # Log loss/accuracy by codebook
     with torch.no_grad():
